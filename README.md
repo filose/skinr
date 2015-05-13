@@ -11,7 +11,7 @@ Include skinr.js before closing `<body>` tag and then call `skinr.select.init()`
 
 Currently presumes following element structure:
 
-```
+```html
 <select>
   <option selected disabled>First option is placeholder/title</option>
   <option value="value1">Subsequent options must have 'value' attribute</option>
