@@ -1,5 +1,7 @@
 # skinr
-Small JavaScript plugin to help style `<select>` elements
+Small JavaScript plugin to help style `<select>` elements.
+
+**N.B. _Not_ production-ready. WIP**
 
 ## Quick start
 
