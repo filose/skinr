@@ -5,7 +5,9 @@
   padding: 0; }
 
 .skinr-select__options {
-  list-style: none; }
+  list-style: none;
+  max-height: 8em;
+  overflow-y: scroll; }
 
 select[hidden] {
   visibility: hidden; }
