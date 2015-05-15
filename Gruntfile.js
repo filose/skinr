@@ -10,9 +10,21 @@ module.exports = function(grunt) {
         src: 'js/skinr.js',
         dest: 'js/skinr.min.js'
       }
+    },
+
+    sass: {
+      options: {
+        sourceMap: true,
+        outputStyle: 'compressed'
+      },
+      dist: {
+        files: {
+          'css/style.css': 'sass/style.scss'
+        }
+      }
     }
   });
 
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['uglify'], ['sass']);
 
 };
