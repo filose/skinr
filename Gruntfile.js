@@ -33,6 +33,13 @@ module.exports = function(grunt) {
         options: {
           spawn: false,
         },
+      },
+      css: {
+        files: ['sass/partials/*.scss', 'sass/*.scss'],
+        tasks: ['sass'],
+        options: {
+          spawn: false,
+        },
       }
     }
   });
