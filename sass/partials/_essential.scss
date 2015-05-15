@@ -1,0 +1,27 @@
+.skinr-select,
+.skinr-select__body,
+.skinr-select__options{
+	margin: 0;
+	padding: 0;
+}
+
+.skinr-select__options{
+	list-style: none;
+}
+
+select[hidden]{
+	visibility: hidden;
+}
+
+.skinr-select{
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	@include clearfix;
+}
+
+.skinr-select:not(.skinr-select--active){
+  .skinr-select__body{
+    @include hide-a11y;
+  }
+}

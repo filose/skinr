@@ -1,3 +1,34 @@
+.skinr-select,
+.skinr-select__body,
+.skinr-select__options {
+  margin: 0;
+  padding: 0; }
+
+.skinr-select__options {
+  list-style: none; }
+
+select[hidden] {
+  visibility: hidden; }
+
+.skinr-select {
+  position: relative;
+  display: inline-block;
+  cursor: pointer; }
+  .skinr-select:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+.skinr-select:not(.skinr-select--active) .skinr-select__body {
+  position: absolute;
+  margin: -1px;
+  padding: 0;
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0); }
+
 .skinr-select__title {
   box-sizing: content-box;
   max-height: 1em;

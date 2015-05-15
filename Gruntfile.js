@@ -17,9 +17,22 @@ module.exports = function(grunt) {
         sourceMap: true
       },
       dist: {
-        files: {
+        files: [{
           'css/style.css': 'sass/style.scss'
-        }
+        },
+        {
+          'css/essential.css': 'sass/essential.scss'
+        }]
+      }
+    },
+
+    watch: {
+      scripts: {
+        files: ['js/*.js'],
+        tasks: ['uglify'],
+        options: {
+          spawn: false,
+        },
       }
     }
   });

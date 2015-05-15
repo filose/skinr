@@ -3,8 +3,7 @@
 var skinr = (function(exports){
 
 	// vars
-	var selectItems,
-			essentialCss = '<style>.skinr-select,.skinr-select dd,.skinr-select__options{margin:0;padding:0}.skinr-select__options{list-style:none}select[hidden]{visibility:hidden}.skinr-select{position:relative;display:inline-block;cursor:pointer}.skinr-select:after{content:"";display:table;clear:both}.skinr-select__body{visibility:hidden}.skinr-select--active .skinr-select__body{visibility:visible}</style>';
+	var selectItems;
 
 	// helper fns
 	var qsa = function(elem){
@@ -65,8 +64,6 @@ var skinr = (function(exports){
 	var exports = {
 		select: {
 			init: function(selector){
-				document.querySelector('head').insertAdjacentHTML('beforeend', essentialCss);
-				;
 				selectItems = selector && typeof selector === 'string' ? qsa(selector) : qsa('select');
 				build(selectItems);
 				skinrEvents();
@@ -74,6 +71,6 @@ var skinr = (function(exports){
 		}
 	};
 
-	return exports;	
+	return exports;
 
 })(skinr || {});
