@@ -37,6 +37,12 @@ var skinr = (function(exports){
 
 		for(var i = 0; i < skinrElems.length; i++){
 			skinrElems[i].style.width = skinrElems[i].offsetWidth + 'px';
+      // remove focus on mousedown
+      skinrElems[i].addEventListener('mousedown', function(e){
+        this.addEventListener('focus', function(e){
+          this.blur();
+        });
+      });
 			skinrElems[i].addEventListener('click', function(e){
 				this.classList.add('skinr-select--active');
 				if(e.target.getAttribute('data-val')){
