@@ -19,7 +19,7 @@ var skinr = (function(exports){
 			for(var j = 1; j < skinrArr[i].options.length; j++){
 				optionsHTML += '<li class="skinr-select__options__item" data-val="' + skinrArr[i].options[j].value + '">' + skinrArr[i].options[j].text + '</li>';
 			}
-			skinrHTML = '<dl class="skinr-select"><dt class="skinr-select__title">' + skinrArr[i].options[0].text + '</dt><dd class="skinr-select__body"><ul class="skinr-select__options">' + optionsHTML + '</ul></dd></dl>';
+			skinrHTML = '<dl class="skinr-select" tabindex="0"><dt class="skinr-select__title">' + skinrArr[i].options[0].text + '</dt><dd class="skinr-select__body"><ul class="skinr-select__options">' + optionsHTML + '</ul></dd></dl>';
 			selectItems[i].insertAdjacentHTML('afterend', skinrHTML);
 			selectItems[i].setAttribute('hidden', '');
 		}
