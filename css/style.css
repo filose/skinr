@@ -31,6 +31,11 @@ select[hidden] {
   overflow: hidden;
   clip: rect(0 0 0 0); }
 
+.skinr-select:focus {
+  outline: none; }
+  .skinr-select:focus .skinr-select__title {
+    border-color: currentColor; }
+
 .skinr-select__title {
   box-sizing: content-box;
   max-height: 1em;

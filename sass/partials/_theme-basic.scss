@@ -1,3 +1,14 @@
+.skinr-select{
+
+  &:focus{
+    outline: none;
+
+    .skinr-select__title{
+      border-color: currentColor;
+    }
+  }
+}
+
 .skinr-select__title{
   box-sizing: content-box;
   max-height: 1em;
