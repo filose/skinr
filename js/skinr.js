@@ -33,6 +33,13 @@ var skinr = (function(exports){
 			}
 		});
 
+    // keyboard events to navigate skinr-select elems
+    addEventListener('keydown', function(e){
+      if(document.activeElement.classList.contains('skinr-select') && e.keyCode == 32){
+        document.activeElement.classList.add('skinr-select--active');
+      }
+    });
+
 		for(var i = 0; i < skinrElems.length; i++){
 			skinrElems[i].style.width = skinrElems[i].offsetWidth + 'px';
       // remove focus on mousedown
