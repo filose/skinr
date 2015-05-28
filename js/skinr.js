@@ -1,5 +1,3 @@
-'use strict';
-
 var skinr = (function(exports){
 
 	// vars
@@ -38,10 +36,12 @@ var skinr = (function(exports){
 		for(var i = 0; i < skinrElems.length; i++){
 			skinrElems[i].style.width = skinrElems[i].offsetWidth + 'px';
       // remove focus on mousedown
+      blurOnce = function(){
+        this.removeEventListener('focus', blurOnce);
+        this.blur();
+      }
       skinrElems[i].addEventListener('mousedown', function(e){
-        this.addEventListener('focus', function(e){
-          this.blur();
-        });
+        this.addEventListener('focus', blurOnce);
       });
 			skinrElems[i].addEventListener('click', function(e){
 				this.classList.add('skinr-select--active');
