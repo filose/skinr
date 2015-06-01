@@ -50,7 +50,8 @@
 .skinr-select__options__item{
   padding: .5em .8em;
 
-  &:hover{
+  &:hover,
+  &[selected]{
     background-color: rgba(0,0,0,.05);
   }
 }
