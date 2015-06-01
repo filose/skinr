@@ -102,7 +102,12 @@ var skinr = (function(exports){
             selectedItem.previousSibling.setAttribute('selected', '');
           }
         }
+      }else{
+        var optionsAll = qsa('.skinr-select__options__item');
+        deselectAll(optionsAll);
       }
+
+      // 3 select option
 
     });
 
@@ -118,7 +123,7 @@ var skinr = (function(exports){
       });
 			skinrElems[i].addEventListener('click', function(e){
 				this.classList.add('skinr-select--active');
-				if(e.target.getAttribute('data-val')){
+				if(e.target.hasAttribute('data-val')){
 					var optionVal = e.target.getAttribute('data-val'),
 							selectItemOptions = this.previousSibling.querySelectorAll('option');
 					for(var j = 0; j < selectItemOptions.length; j++){
