@@ -11,11 +11,14 @@ To run skinr call `skinr.init()`
 
 `init()` method takes an optional config object parameter with the following properties:
 
-```
+```javascript
 {
-  // Selector string that when set will instantiate Skinr only on elements that match it. Default behaviour is to target all <select> elements.
+  // Selector string that when set will instantiate Skinr only on elements that match it.
+  // Default behaviour is to target all <select> elements.
   selector: '.skin-me',
-  // Boolean that indicates whether or not the first option in each select is a title value and therefore not to be included in the list of Skinr options. Default is false.
+  // Boolean that indicates whether or not the first option in each select is a title value
+  // If true first option not included in the list of Skinr options.
+  // Default is false.
   titleOption: true
 }
 ```
