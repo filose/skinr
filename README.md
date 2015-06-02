@@ -29,7 +29,7 @@ Currently presumes following element structure:
 
 ```html
 <select>
-  <option selected disabled>First option is placeholder/title</option>
+  <option selected disabled>First option can be placeholder/title</option>
   <option value="value1">Subsequent options must have 'value' attribute</option>
   <option value="value2">Option two</option>
   <option value="value3">Option three</option>
