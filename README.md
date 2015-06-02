@@ -1,15 +1,24 @@
 # skinr
 Small JavaScript plugin to help style `<select>` elements.
 
-**N.B. _Not_ production-ready. WIP**
+**N.B. _Not_ production-ready.**
 
 ## Quick start
 
 Include skinr.js before closing `<body>` tag and at at the very least include essential.css (style.css includes additional basic theme styles) inside the `<head>`.
 
-To run skinr call `skinr.select.init()`
+To run skinr call `skinr.init()`
 
-`init()` method takes an optional selector parameter, so you can choose to only instantiate on elements with a class of `skin-me` by calling `skinr.select.init('.skin-me')`. Default behaviour is to target all `<select>` elements on the page.
+`init()` method takes an optional config object parameter with the following properties:
+
+```
+{
+  // Selector string that when set will instantiate Skinr only on elements that match it. Default behaviour is to target all <select> elements.
+  selector: '.skin-me',
+  // Boolean that indicates whether or not the first option in each select is a title value and therefore not to be included in the list of Skinr options. Default is false.
+  titleOption: true
+}
+```
 
 ## Notes
 
