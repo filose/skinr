@@ -1,44 +1,87 @@
+'use strict';
+
 var skinr = (function(exports){
 
-	// vars
-	var selectItems;
-
-	// helper fns
-	var qsa = function(elem){
-	  return document.querySelectorAll(elem);
-	};
-
-  var qs = function(elem){
-    return document.querySelector(elem);
+  var buildOptions = function(options, titleOption){
+    var optionsHtml = '';
+    for(var i = titleOption ? 1 : 0, l = options.length; i < l; i++){
+      optionsHtml += '<li class="skinr-select__options__item" data-val="' +
+        options[i].value + '">' +
+        options[i].text + '</li>';
+    }
+    return optionsHtml;
   };
 
-	function build(selectItems){
-		var skinrArr = [];
-		for(var i = 0; i < selectItems.length; i++){
-			var optionsHTML = '',
-					skinrHTML = '';
-			skinrArr.push(new Skinr(selectItems[i]));
-			for(var j = 1; j < skinrArr[i].options.length; j++){
-				optionsHTML += '<li class="skinr-select__options__item" data-val="' + skinrArr[i].options[j].value + '">' + skinrArr[i].options[j].text + '</li>';
-			}
-			skinrHTML = '<dl class="skinr-select" tabindex="0"><dt class="skinr-select__title">' + skinrArr[i].options[0].text + '</dt><dd class="skinr-select__body"><ul class="skinr-select__options">' + optionsHTML + '</ul></dd></dl>';
-			selectItems[i].insertAdjacentHTML('afterend', skinrHTML);
-			selectItems[i].setAttribute('hidden', '');
-		}
-	}
+  var buildSkinrs = function(options, originalElems){
+    // set title position - if titleOption is true then use first option, otherwise use second (default second)
+    var skinrHtml = '<dl class="skinr-select" tabindex="0"><dt class="skinr-select__title">' + originalElems.children[0].text + '</dt><dd class="skinr-select__body"><ul class="skinr-select__options">' + options + '</ul></dd></dl>';
+    return skinrHtml;
+  };
 
-	function skinrEvents(){
-		var skinrElems = qsa('.skinr-select');
-		addEventListener('click', function(e){
-			for(var i = 0; i < skinrElems.length; i++){
-				if(e.target !== skinrElems[i].children[0] && skinrElems[i].classList.contains('skinr-select--active')){
-					skinrElems[i].classList.remove('skinr-select--active');
-				}
-			}
-		});
+  // build up and insert Skinr HTML after each element matching selector, then hide element
+  var build = function(selector, titleOption){
+    var originalElems = document.querySelectorAll(selector);
 
-    // keyboard events to navigate skinr-select elems
-    // helpers
+    // loop through all elements matching query selector
+    for(var i = 0, l = originalElems.length; i < l; i++){
+      var skinrOptions = originalElems[i].children,
+          // build new Skinr HTML
+          skinrHtml = buildSkinrs(buildOptions(skinrOptions, titleOption), originalElems[i]);
+
+      // insert Skinr HTML after each queried element, hide original element
+      originalElems[i].insertAdjacentHTML('afterend', skinrHtml);
+      originalElems[i].setAttribute('hidden', '');
+    }
+
+    // set inline width, prevents options from overlapping
+    var skinrs = document.querySelectorAll('.skinr-select');
+    for(var i = 0, l = skinrs.length; i < l; i++){
+      skinrs[i].style.width = skinrs[i].offsetWidth + 'px';
+    }
+  };
+
+  var skinrEvents = function(){
+    var skinrs = document.querySelectorAll('.skinr-select');
+
+    var openSkinr = function(skinr){
+      skinr.classList.add('skinr-select--active');
+    };
+
+    var closeSkinr = function(skinr){
+      skinr.classList.remove('skinr-select--active');
+    };
+
+    var selectOriginalOption = function(skinrOption, originalOptions, skinrTitle){
+      if(skinrOption.hasAttribute('data-val')){
+        var optionVal = skinrOption.getAttribute('data-val');
+        for(var i = 0, l = originalOptions.length; i < l; i++){
+          if(originalOptions[i].hasAttribute('selected')){
+            originalOptions[i].removeAttribute('selected');
+          }
+          if(originalOptions[i].getAttribute('value') === optionVal){
+            originalOptions[i].setAttribute('selected', '');
+            skinrTitle.textContent = originalOptions[i].textContent;
+          }
+        }
+      }
+    };
+
+    var getSkinrInFocus = function(){
+      if(document.activeElement.classList.contains('skinr-select')){
+        return document.activeElement;
+      }
+    };
+
+    var getSkinrOpen = function(){
+      var skinrsOpen = document.querySelectorAll('.skinr-select');
+      for(var i = 0, l = skinrsOpen.length; i < l; i++){
+        if(skinrsOpen[i].classList.contains('skinr-select--active')){
+          return skinrsOpen[i];
+          break;
+        }
+      }
+    };
+
     var isSelected = function(arr){
       var selected = false;
       for(var i = 0; i < arr.length; i++){
@@ -71,90 +114,122 @@ var skinr = (function(exports){
       }
     };
 
-    // 1 open skinr
+    var selectOption = function(arr, index){
+      deselectAll(arr);
+      arr[index].setAttribute('selected', '');
+    };
+
+    var selectThisOption = function(arr, item){
+      deselectAll(arr);
+      item.setAttribute('selected', '');
+    };
+
+    /* ============ *\
+       Mouse events
+    \* ============ */
+
+    // loop through all skinr elements and add events to:
+    for(var i = 0, l = skinrs.length; i < l; i++){
+      var skinrCurrent = skinrs[i];
+      skinrCurrent.addEventListener('click', function(e){
+        // 1 open skinr
+        openSkinr(this);
+        // 2 select corresonding option from original select element on skinr-select__options__item click
+        if(e.target.classList.contains('skinr-select__options__item')){
+          var skinrOption = e.target,
+              originalOptions = this.previousSibling.querySelectorAll('option'),
+              skinrOptionsAll = this.querySelectorAll('.skinr-select__options__item');
+          // select corresponsing option in original element
+          selectOriginalOption(skinrOption, originalOptions, this.children[0]);
+          // select this skinr option
+          selectThisOption(skinrOptionsAll, skinrOption);
+
+          // 3 close skinr
+          closeSkinr(this);
+        }
+      });
+    }
+
+    // global events
+    addEventListener('click', function(e){
+      var skinrsActive = document.querySelectorAll('.skinr-select--active');
+      // loop through all active skinrs and if click target is not inside, close skinr
+      for(var i = 0, l = skinrsActive.length; i < l; i++){
+        var target = e.target;
+        while(target && target !== skinrsActive[i]){
+          target = target.parentNode;
+        }
+        if(!target){
+          closeSkinr(skinrsActive[i]);
+        }
+      }
+    });
+
+    /* =============== *\
+       Keyboard events
+    \* =============== */
+
     addEventListener('keydown', function(e){
-      var skinrOpen = false;
-      if(document.activeElement.classList.contains('skinr-select')){
-        var skinrFocus = document.activeElement;
-        if(e.keyCode === 32 || e.keyCode === 38 || e.keyCode === 40){
-          skinrFocus.classList.add('skinr-select--active');
-          skinrOpen = true;
+      // if skinr is active element
+      if(getSkinrInFocus()){
+        var skinrInFocus = getSkinrInFocus();
+        // 1 open focussed skinr when up arrow, down arrow, enter key or spacebar is pressed
+        if(e.keyCode === 32 || e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 13){
+          openSkinr(skinrInFocus);
         }else{
-          skinrFocus.classList.remove('skinr-select--active');
-          skinrOpen = false;
+          closeSkinr(skinrInFocus);
         }
       }
 
       // 2 Navigate options
-      var options = qsa('.skinr-select--active .skinr-select__options__item');
-      if(skinrOpen){
-        if(!isSelected(options)){
-          options[0].setAttribute('selected', '');
+      if(getSkinrOpen()){
+        var activeOptions = document.querySelectorAll('.skinr-select--active .skinr-select__options__item');
+        if(!isSelected(activeOptions)){
+          selectOption(activeOptions, 0);
         }else{
-          if(e.keyCode == 40 && getSelectedIndex(options) < options.length - 1){
-            var selectedItem = getSelected(options);
-            deselectAll(options);
-            selectedItem.nextSibling.setAttribute('selected', '');
+          var selectedOptionIndex = getSelectedIndex(activeOptions);
+          // press down arrow: increment selectedOptionIndex option by one
+          if(e.keyCode === 40){
+            if(selectedOptionIndex < activeOptions.length - 1){
+              selectedOptionIndex++;
+            }
           }
-          if(e.keyCode == 38 && getSelectedIndex(options) > 0){
-            var selectedItem = getSelected(options);
-            deselectAll(options);
-            selectedItem.previousSibling.setAttribute('selected', '');
+          // press up arrow: decrement selectedOptionIndex option by one
+          if(e.keyCode === 38){
+            if(selectedOptionIndex > 0){
+              selectedOptionIndex--;
+            }
+          }
+          // 3 select skinr option
+          selectOption(activeOptions, selectedOptionIndex);
+          // 4 press spacebar or enter: select corresponding option from original element
+          if(e.keyCode === 32|| e.keyCode === 13){
+            var skinrOpen = getSkinrOpen(),
+                originalOptions = skinrOpen.previousSibling.querySelectorAll('option');
+
+            selectOriginalOption(activeOptions[selectedOptionIndex], originalOptions, skinrOpen.children[0]);
+            closeSkinr(skinrOpen);
           }
         }
-      }else{
-        var optionsAll = qsa('.skinr-select__options__item');
-        deselectAll(optionsAll);
       }
-
-      // 3 select option
-
     });
 
-		for(var i = 0; i < skinrElems.length; i++){
-			skinrElems[i].style.width = skinrElems[i].offsetWidth + 'px';
-      // remove focus on mousedown
-      blurOnce = function(){
-        this.removeEventListener('focus', blurOnce);
-        this.blur();
-      }
-      skinrElems[i].addEventListener('mousedown', function(e){
-        this.addEventListener('focus', blurOnce);
-      });
-			skinrElems[i].addEventListener('click', function(e){
-				this.classList.add('skinr-select--active');
-				if(e.target.hasAttribute('data-val')){
-					var optionVal = e.target.getAttribute('data-val'),
-							selectItemOptions = this.previousSibling.querySelectorAll('option');
-					for(var j = 0; j < selectItemOptions.length; j++){
-						if(selectItemOptions[j].hasAttribute('selected')){
-							selectItemOptions[j].removeAttribute('selected');
-						}
-						if(selectItemOptions[j].getAttribute('value') === optionVal){
-							selectItemOptions[j].setAttribute('selected', '');
-							this.children[0].textContent = selectItemOptions[j].textContent;
-						}
-					}
-				}
-			});
-		}
-	}
 
-	function Skinr(elem){
-		this.select = elem,
-		this.options = this.select.children
-	}
+  };
 
-	var exports = {
-		select: {
-			init: function(selector){
-				selectItems = selector && typeof selector === 'string' ? qsa(selector) : qsa('select');
-				build(selectItems);
-				skinrEvents();
-			}
-		}
-	};
+  var exports = {
+    init: function(c){
+      var c = c || {},
+          config = {
+        selector: c.selector || 'select',
+        titleOption: c.titleOption || false
+      };
 
-	return exports;
+      build(config.selector, config.titleOption);
+      skinrEvents();
+    }
+  };
+
+  return exports;
 
 })(skinr || {});
