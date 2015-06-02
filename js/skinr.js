@@ -32,6 +32,12 @@ var skinr = (function(exports){
       originalElems[i].insertAdjacentHTML('afterend', skinrHtml);
       originalElems[i].setAttribute('hidden', '');
     }
+
+    // set inline width, prevents skinr from resizing after selecting option
+    var skinrs = document.querySelectorAll('.skinr-select');
+    for(var i = 0, l = skinrs.length; i < l; i++){
+      skinrs[i].style.width = skinrs[i].offsetWidth + 'px';
+    }
   };
 
   var skinrEvents = function(){
