@@ -5,7 +5,7 @@ Small JavaScript plugin to help style `<select>` elements.
 
 ## Quick start
 
-Include skinr.js before closing `<body>` tag and at at the very least include essential.css (style.css includes additional basic theme styles) inside the `<head>`.
+Include skinr.min.js before closing `<body>` tag and at at the very least include essential.css (style.css includes additional basic theme styles) inside the `<head>`.
 
 To run skinr call `skinr.init()`
 
