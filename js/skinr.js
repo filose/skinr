@@ -225,8 +225,15 @@ var skinr = (function(exports){
         titleOption: c.titleOption || false
       };
 
-      build(config.selector, config.titleOption);
-      skinrEvents();
+      // cut the mustard
+      if('querySelector' in document
+        && 'localStorage' in window
+        && 'addEventListener' in window){
+          build(config.selector, config.titleOption);
+          skinrEvents();
+      }else{
+        console.log('Skinr error: Failed to instantiate. You didn\'t cut the mustard :(');
+      }
     }
   };
 
