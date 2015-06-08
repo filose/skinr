@@ -10,7 +10,10 @@
 
 	<form>
 
-		<select name="defenders" class="defenders">
+    <label for="defenders">
+      <h3>Defender</h3>
+    </label>
+		<select id="defenders" name="defenders">
 			<option selected disabled>Select defender</option>
 			<option value="1">Koscielny</option>
 			<option value="2">Mertesacker</option>
@@ -20,14 +23,20 @@
       <option value="6">Gibbs</option>
 		</select>
 
-		<select name="midfielders" class="midfielders">
+    <label for="midfielders">
+      <h3>Midfielder</h3>
+    </label>
+		<select id="midfielders" name="midfielders">
 			<option selected disabled>Select midfielder</option>
 			<option value="7">Ramsey</option>
 			<option value="8">&#214;zil</option>
 			<option value="9">Wilshere</option>
 		</select>
 
-		<select name="forwards" class="forwards">
+    <label for="forwards">
+      <h3>Forward</h3>
+    </label>
+		<select id="midfielders" name="forwards">
 			<option selected disabled>Select forward</option>
 			<option value="10">Giroud</option>
 			<option value="11">S&#225;nchez</option>
@@ -38,7 +47,7 @@
 
 	<script src="js/skinr.js"></script>
 	<script>
-		skinr.init({
+    skinr.init({
       titleOption: true
     });
 	</script>
