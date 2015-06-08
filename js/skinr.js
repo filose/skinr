@@ -225,7 +225,7 @@ var skinr = (function(exports){
         titleOption: c.titleOption || false
       };
 
-      // cut the mustard
+      // cut the mustard -> http://responsivenews.co.uk/post/18948466399/cutting-the-mustard
       if('querySelector' in document
         && 'localStorage' in window
         && 'addEventListener' in window){
