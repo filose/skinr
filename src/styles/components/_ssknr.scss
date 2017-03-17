@@ -1,0 +1,29 @@
+@import '../mixins';
+
+// Resets
+.ssknr,
+.ssknr__content,
+.ssknr__options{
+	margin: 0;
+	padding: 0;
+}
+
+// Essential styles
+:global{
+  select[hidden]{
+    display: none!important;
+  }
+}
+
+.ssknr{
+	cursor: pointer;
+}
+
+  .ssknr__content{
+	  display: none;
+	}
+
+  .ssknr__options{
+    max-height: 8em;
+    overflow-y: scroll;
+  }

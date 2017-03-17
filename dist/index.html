@@ -2,14 +2,12 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Skinr demo</title>
-	<link rel="stylesheet" href="css/style.css">
+	<title>SelectSkinr demo</title>
 </head>
-
 <body>
-
+  <button id="btn">Click me</button>
 	<form>
-
+    <!-- Field 1 -->
     <label for="defenders">
       <h3>Defender</h3>
     </label>
@@ -17,12 +15,12 @@
 			<option selected disabled>Select defender</option>
 			<option value="1">Koscielny</option>
 			<option value="2">Mertesacker</option>
-			<option value="3">Bellerin</option>
+			<option value="3">Beller&#237;n</option>
       <option value="4">Gabriel</option>
       <option value="5">Monreal</option>
       <option value="6">Gibbs</option>
 		</select>
-
+    <!-- Field 2 -->
     <label for="midfielders">
       <h3>Midfielder</h3>
     </label>
@@ -32,25 +30,22 @@
 			<option value="8">&#214;zil</option>
 			<option value="9">Wilshere</option>
 		</select>
-
+    <!-- Field 3 -->
     <label for="forwards">
       <h3>Forward</h3>
     </label>
-		<select id="midfielders" name="forwards">
+		<select id="forwards" name="forwards">
 			<option selected disabled>Select forward</option>
 			<option value="10">Giroud</option>
 			<option value="11">S&#225;nchez</option>
 			<option value="12">Welbeck</option>
 		</select>
-
 	</form>
-
-	<script src="js/skinr.js"></script>
-	<script>
-    skinr.init({
-      titleOption: true
+	<script src="./js/bundle.min.js"></script>
+  <script>
+    selectSkinr({
+      hasTitle: true,
     });
-	</script>
-
+  </script>
 </body>
 </html>
