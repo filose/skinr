@@ -1,7 +1,7 @@
 import style from '../../styles/components/_ssknr.scss';
 
-const template = (hasTitle, options) => {
-  const optionHtml = Array.prototype.map.call(options, (option, i) => {
+const template = (hasTitle, elem) => {
+  const optionHtml = Array.prototype.map.call(elem.options, (option, i) => {
     if (hasTitle && i === 0) {
       return null;
     }
@@ -10,8 +10,8 @@ const template = (hasTitle, options) => {
     `;
   }).join('');
   return `
-    <dl class="${style.ssknr} c-ssknr js-ssknr">
-      <dt class="c-ssknr__title">${options[0].text}</dt>
+    <dl class="${style.ssknr} c-ssknr js-ssknr" data-id="${elem.id}">
+      <dt class="c-ssknr__title">${elem.options[0].text}</dt>
       <dd class="${style.ssknr__content} c-ssknr__content">
         <ul class="${style.ssknr__options} c-ssknr__options">
           ${optionHtml}

@@ -11,9 +11,8 @@ export function getElems(elems) {
   };
 }
 
-export function openSskinr(data) {
+export function openSskinr() {
   return {
     type: 'OPEN_SSKINR',
-    data,
   };
 }
