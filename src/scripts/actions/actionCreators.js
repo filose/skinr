@@ -18,3 +18,11 @@ export function closeSsknr(id) {
     id,
   };
 }
+
+export function highlightOption(rootId, index) {
+  return {
+    type: 'HIGHLIGHT_OPTION',
+    rootId,
+    index,
+  };
+}

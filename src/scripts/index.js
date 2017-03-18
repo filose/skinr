@@ -1,6 +1,6 @@
 import template from './modules/sSkinrTemplate';
 import store from './store';
-import { boundActionCreators, toggleSsknr } from './events/listeners';
+import { boundActionCreators, toggleSsknr, highlightOption } from './events/listeners';
 
 // TODO REMOVE
 store.subscribe(() => {
@@ -12,7 +12,7 @@ store.subscribe(() => {
     for (const [id, elem] of Object.entries(state.elems)) {
       setTimeout(() => {
         const $elem = document.querySelector(`.js-ssknr[data-id="${id}"]`);
-        if (elem.ssknr.open) {
+        if (elem.isOpen) {
           $elem.classList.add('c-ssknr--is-open');
         } else {
           $elem.classList.remove('c-ssknr--is-open');
@@ -31,18 +31,22 @@ const selectSkinr = ({
   setTimeout(() => {
     // Build elems object
     const elemsObj = [].reduce.call($elems, (obj, elem) => {
+      let elemOptions = elem.options;
+      if (hasTitle) {
+        // Filter options to ignore first if it's a title option
+        elemOptions = [].filter.call(elem.options, option => option.index !== 0);
+      }
       obj[elem.id] = {
         id: elem.id,
-        options: [].map.call(elem.options, (option) => {
+        title: elem.options[0].text,
+        options: [].map.call(elemOptions, (option) => {
           return {
-            index: option.index,
+            index: hasTitle ? option.index - 1 : option.index,
             text: option.text,
             value: option.value,
           };
         }),
-        ssknr: {
-          open: false,
-        },
+        isOpen: false,
       };
       return obj;
     }, {});
@@ -60,6 +64,9 @@ const selectSkinr = ({
       $elem.parentNode.insertBefore($ssknr, $elem.nextSibling);
       // Events
       $ssknr.addEventListener('click', toggleSsknr);
+      for (const $ssknrOption of $ssknr.querySelectorAll('.js-ssknr-option')) {
+        $ssknrOption.addEventListener('mouseenter', highlightOption);
+      }
     }
   });
 };
