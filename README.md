@@ -1,24 +1,18 @@
 # skinr
-Small JavaScript plugin to help style `<select>` elements.
+Minimal JavaScript plugin to help style `<select>` elements. Built with es6 and Redux.
 
 **N.B. _Not_ production-ready.**
 
-## Quick start
-
-Include skinr.min.js before closing `<body>` tag and at at the very least include essential.css (style.css includes additional basic theme styles) inside the `<head>`.
-
-To run skinr call `skinr.init()`
-
-`init()` method takes an optional config object parameter with the following properties:
+## Config
 
 ```javascript
 {
-  // Selector string that when set will instantiate Skinr only on elements that match it.
+  // Selector string that when set will instantiate plugin only on elements that match it.
   // Default behaviour is to target all <select> elements.
   selector: '.skin-me',
-  // Boolean that indicates whether or not the first option in each select is a title value
+  // Boolean that indicates whether or not the first option in each option list is a title value
   // If true first option not included in the list of Skinr options.
-  // Default is false.
+  // Defaults to false.
   titleOption: true
 }
 ```
@@ -35,5 +29,3 @@ Currently presumes following element structure:
   <option value="value3">Option three</option>
 </select>
 ```
-
-Still WIP. Please add any missing features to the issue log :)
