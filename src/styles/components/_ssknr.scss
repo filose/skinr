@@ -13,6 +13,13 @@
   select[hidden]{
     display: none!important;
   }
+
+	.c-ssknr--is-open{
+
+		.c-ssknr__content{
+		  display: block;
+		}
+	}
 }
 
 .ssknr{

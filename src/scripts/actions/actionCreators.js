@@ -1,9 +1,3 @@
-export function test() {
-  return {
-    type: 'TEST',
-  };
-}
-
 export function getElems(elems) {
   return {
     type: 'GET_ELEMS',
@@ -11,8 +5,16 @@ export function getElems(elems) {
   };
 }
 
-export function openSskinr() {
+export function openSsknr(id) {
   return {
-    type: 'OPEN_SSKINR',
+    type: 'OPEN_SSKNR',
+    id,
+  };
+}
+
+export function closeSsknr(id) {
+  return {
+    type: 'CLOSE_SSKNR',
+    id,
   };
 }
