@@ -1,25 +1,16 @@
 import template from './modules/sSkinrTemplate';
 import store from './store';
-import { boundActionCreators, toggleSsknr, highlightOption } from './events/listeners';
+import { boundActionCreators, toggleSsknr, highlightOption } from './events/handlers';
+import updateDOM from './modules/render';
 
 // TODO REMOVE
 store.subscribe(() => {
   // Log any updates to the store
   console.log('Store: ', store.getState());
-  // TODO refactor to separate module and clean up, currently just proof of concept
   const state = store.getState();
-  if (state.elems) {
-    for (const [id, elem] of Object.entries(state.elems)) {
-      setTimeout(() => {
-        const $elem = document.querySelector(`.js-ssknr[data-id="${id}"]`);
-        if (elem.isOpen) {
-          $elem.classList.add('c-ssknr--is-open');
-        } else {
-          $elem.classList.remove('c-ssknr--is-open');
-        }
-      });
-    }
-  }
+  setTimeout(() => {
+    updateDOM(state);
+  });
 });
 
 const selectSkinr = ({
@@ -44,6 +35,7 @@ const selectSkinr = ({
             index: hasTitle ? option.index - 1 : option.index,
             text: option.text,
             value: option.value,
+            highlighted: false,
           };
         }),
         isOpen: false,

@@ -26,3 +26,10 @@ export function highlightOption(rootId, index) {
     index,
   };
 }
+
+export function removeHighlights(rootId) {
+  return {
+    type: 'REMOVE_HIGHLIGHTS',
+    rootId,
+  };
+}

@@ -2,16 +2,23 @@ const options = (state = [], action) => {
   switch (action.type) {
     case 'HIGHLIGHT_OPTION': {
       const { index } = action;
-      return state;
-      // TODO FIX!
-      // return [
-      //   ...state.slice(0, index),
-      //   {
-      //     ...state[index],
-      //     highlighted: true,
-      //   },
-      //   ...state.slice(index + 1),
-      // ];
+      const i = parseInt(index, 10);
+      return [
+        ...state.slice(0, i),
+        {
+          ...state[i],
+          highlighted: true,
+        },
+        ...state.slice(i + 1),
+      ];
+    }
+    case 'REMOVE_HIGHLIGHTS': {
+      return state.map((option) => {
+        return {
+          ...option,
+          highlighted: false,
+        };
+      });
     }
     default:
       return state;
@@ -50,6 +57,16 @@ const elems = (state = {}, action) => {
         },
       };
     }
+    case 'REMOVE_HIGHLIGHTS': {
+      const { rootId } = action;
+      return {
+        ...state,
+        [rootId]: {
+          ...state[rootId],
+          options: options(state[rootId].options, action),
+        },
+      };
+    }
     default:
       return state;
   }
@@ -73,6 +90,11 @@ const reducer = (state = {}, action) => {
         elems: elems(state.elems, action),
       };
     case 'HIGHLIGHT_OPTION':
+      return {
+        ...state,
+        elems: elems(state.elems, action),
+      };
+    case 'REMOVE_HIGHLIGHTS':
       return {
         ...state,
         elems: elems(state.elems, action),

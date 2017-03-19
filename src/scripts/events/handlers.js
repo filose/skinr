@@ -25,6 +25,7 @@ export function highlightOption(e) {
   const state = store.getState();
   const rootId = getRootId(state, e.target);
   const optionIndex = e.target.dataset.index;
+  boundActionCreators.removeHighlights(rootId);
   boundActionCreators.highlightOption(rootId, optionIndex);
 }
 
