@@ -27,9 +27,9 @@ export function highlightOption(rootId, index) {
   };
 }
 
-export function removeHighlights(rootId) {
+export function removeHighlightAllOptions(rootId) {
   return {
-    type: 'REMOVE_HIGHLIGHTS',
+    type: 'REMOVE_HIGHLIGHTS_ALL_OPTIONS',
     rootId,
   };
 }
