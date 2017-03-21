@@ -1,6 +1,6 @@
 import template from './modules/sSkinrTemplate';
 import store from './store';
-import { boundActionCreators, toggleSsknr, highlightOption } from './modules/eventHandlers';
+import { boundActionCreators, toggleSsknr, highlightOption, selectOption } from './modules/eventHandlers';
 import updateDOM from './modules/render';
 
 // TODO REMOVE
@@ -36,6 +36,7 @@ const selectSkinr = ({
             text: option.text,
             value: option.value,
             highlighted: false,
+            selected: false,
           };
         }),
         isOpen: false,
@@ -58,6 +59,7 @@ const selectSkinr = ({
       $ssknr.addEventListener('click', toggleSsknr);
       for (const $ssknrOption of $ssknr.querySelectorAll('.js-ssknr-option')) {
         $ssknrOption.addEventListener('mouseenter', highlightOption);
+        $ssknrOption.addEventListener('click', selectOption);
       }
     }
   });

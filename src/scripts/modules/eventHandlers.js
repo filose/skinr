@@ -29,4 +29,14 @@ export function highlightOption(e) {
   boundActionCreators.highlightOption(rootId, optionIndex);
 }
 
+export function selectOption(e) {
+  const state = store.getState();
+  const rootId = getRootId(state, e.target);
+  const highlightedOptionIndex = state.elems[rootId].options
+    .findIndex(option => option.highlighted);
+  boundActionCreators.removeHighlightAllOptions(rootId);
+  boundActionCreators.deselectAllOptions(rootId);
+  boundActionCreators.selectOption(rootId, highlightedOptionIndex);
+}
+
 export { boundActionCreators };

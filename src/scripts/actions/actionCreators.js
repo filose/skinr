@@ -33,3 +33,18 @@ export function removeHighlightAllOptions(rootId) {
     rootId,
   };
 }
+
+export function selectOption(rootId, index) {
+  return {
+    type: 'SELECT_HIGHLIGHTED_OPTION',
+    rootId,
+    index,
+  };
+}
+
+export function deselectAllOptions(rootId, index) {
+  return {
+    type: 'DESELECT_ALL_OPTIONS',
+    rootId,
+  };
+}

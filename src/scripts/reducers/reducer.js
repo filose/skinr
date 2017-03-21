@@ -20,6 +20,26 @@ const options = (state = [], action) => {
         };
       });
     }
+    case 'SELECT_HIGHLIGHTED_OPTION': {
+      const { index } = action;
+      const i = parseInt(index, 10);
+      return [
+        ...state.slice(0, i),
+        {
+          ...state[i],
+          selected: true,
+        },
+        ...state.slice(i + 1),
+      ];
+    }
+    case 'DESELECT_ALL_OPTIONS': {
+      return state.map((option) => {
+        return {
+          ...option,
+          selected: false,
+        };
+      });
+    }
     default:
       return state;
   }
@@ -67,6 +87,26 @@ const elems = (state = {}, action) => {
         },
       };
     }
+    case 'SELECT_HIGHLIGHTED_OPTION': {
+      const { rootId } = action;
+      return {
+        ...state,
+        [rootId]: {
+          ...state[rootId],
+          options: options(state[rootId].options, action),
+        },
+      };
+    }
+    case 'DESELECT_ALL_OPTIONS': {
+      const { rootId } = action;
+      return {
+        ...state,
+        [rootId]: {
+          ...state[rootId],
+          options: options(state[rootId].options, action),
+        },
+      };
+    }
     default:
       return state;
   }
@@ -95,6 +135,16 @@ const reducer = (state = {}, action) => {
         elems: elems(state.elems, action),
       };
     case 'REMOVE_HIGHLIGHTS_ALL_OPTIONS':
+      return {
+        ...state,
+        elems: elems(state.elems, action),
+      };
+    case 'SELECT_HIGHLIGHTED_OPTION':
+      return {
+        ...state,
+        elems: elems(state.elems, action),
+      };
+    case 'DESELECT_ALL_OPTIONS':
       return {
         ...state,
         elems: elems(state.elems, action),
