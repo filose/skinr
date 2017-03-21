@@ -1,6 +1,6 @@
 import template from './modules/sSkinrTemplate';
 import store from './store';
-import { boundActionCreators, toggleSsknr, highlightOption } from './events/handlers';
+import { boundActionCreators, toggleSsknr, highlightOption } from './modules/eventHandlers';
 import updateDOM from './modules/render';
 
 // TODO REMOVE
