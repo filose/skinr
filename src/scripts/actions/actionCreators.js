@@ -29,7 +29,7 @@ export function highlightOption(rootId, index) {
 
 export function removeHighlightAllOptions(rootId) {
   return {
-    type: 'REMOVE_HIGHLIGHTS_ALL_OPTIONS',
+    type: 'REMOVE_HIGHLIGHT_ALL_OPTIONS',
     rootId,
   };
 }

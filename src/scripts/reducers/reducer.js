@@ -12,7 +12,7 @@ const options = (state = [], action) => {
         ...state.slice(i + 1),
       ];
     }
-    case 'REMOVE_HIGHLIGHTS_ALL_OPTIONS': {
+    case 'REMOVE_HIGHLIGHT_ALL_OPTIONS': {
       return state.map((option) => {
         return {
           ...option,
@@ -77,7 +77,7 @@ const elems = (state = {}, action) => {
         },
       };
     }
-    case 'REMOVE_HIGHLIGHTS_ALL_OPTIONS': {
+    case 'REMOVE_HIGHLIGHT_ALL_OPTIONS': {
       const { rootId } = action;
       return {
         ...state,
@@ -134,7 +134,7 @@ const reducer = (state = {}, action) => {
         ...state,
         elems: elems(state.elems, action),
       };
-    case 'REMOVE_HIGHLIGHTS_ALL_OPTIONS':
+    case 'REMOVE_HIGHLIGHT_ALL_OPTIONS':
       return {
         ...state,
         elems: elems(state.elems, action),
