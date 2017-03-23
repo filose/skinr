@@ -1,16 +1,15 @@
-import template from './modules/sSkinrTemplate';
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import store from './store';
-import { boundActionCreators, toggleSsknr, highlightOption, selectOption } from './modules/eventHandlers';
-import updateDOM from './modules/render';
+import Ssknr from './components/Ssknr';
+import App from './components/App';
+import { boundActionCreators } from './modules/eventHandlers';
 
 // TODO REMOVE
 store.subscribe(() => {
   // Log any updates to the store
   console.log('Store: ', store.getState());
-  const state = store.getState();
-  setTimeout(() => {
-    updateDOM(state);
-  });
 });
 
 const selectSkinr = ({
@@ -50,17 +49,22 @@ const selectSkinr = ({
       const $elem = document.getElementById(id);
       // Hide initial elements
       $elem.setAttribute('hidden', true);
-      // Build and render selectSknrs
-      const $tempContainer = document.createElement('div');
-      $tempContainer.innerHTML = template(hasTitle, elem);
-      const $ssknr = $tempContainer.firstElementChild;
-      $elem.parentNode.insertBefore($ssknr, $elem.nextSibling);
-      // Events
-      $ssknr.addEventListener('click', toggleSsknr);
-      for (const $ssknrOption of $ssknr.querySelectorAll('.js-ssknr-option')) {
-        $ssknrOption.addEventListener('mouseenter', highlightOption);
-        $ssknrOption.addEventListener('click', selectOption);
-      }
+      const $container = document.createElement('div');
+      $elem.parentNode.insertBefore($container, $elem.nextSibling);
+      render(
+        (
+          <Provider store={store}>
+            <App id={id} />
+          </Provider>
+        ),
+        $container,
+      );
+      // // Events
+      // $ssknr.addEventListener('click', toggleSsknr);
+      // for (const $ssknrOption of $ssknr.querySelectorAll('.js-ssknr-option')) {
+      //   $ssknrOption.addEventListener('mouseenter', highlightOption);
+      //   $ssknrOption.addEventListener('click', selectOption);
+      // }
     }
   });
 };

@@ -2,8 +2,8 @@
 
 // Resets
 .ssknr,
-.ssknr__content,
-.ssknr__options{
+.ssknrContent,
+.ssknrOptions{
 	margin: 0;
 	padding: 0;
 }
@@ -13,24 +13,21 @@
   select[hidden]{
     display: none!important;
   }
-
-	.c-ssknr--is-open{
-
-		.c-ssknr__content{
-		  display: block;
-		}
-	}
 }
 
 .ssknr{
 	cursor: pointer;
 }
 
-  .ssknr__content{
+  .ssknrContent{
 	  display: none;
 	}
 
-  .ssknr__options{
+	.ssknrContentOpen{
+		display: block;
+	}
+
+  .ssknrOptions{
     max-height: 8em;
     overflow-y: scroll;
   }
