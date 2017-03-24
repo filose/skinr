@@ -4,7 +4,8 @@
   "author": "Jack Filose",
   "license": "ISC",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server -d"
+    "start": "node_modules/.bin/webpack-dev-server --colors --config webpack.config.dev.js",
+    "build": "webpack --config webpack.config.js -p"
   },
   "babel": {
     "presets": [

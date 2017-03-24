@@ -3,7 +3,10 @@ const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/scripts/index.js',
+  devtool: 'source-map',
+  entry: [
+    './src/scripts/index.js'
+  ],
   output: {
     filename: 'js/bundle.min.js',
     path: path.join(__dirname, 'dist'),
@@ -15,7 +18,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           'babel-loader',
-          'eslint-loader',
+          'eslint-loader'
         ]
       },
       {
@@ -30,17 +33,14 @@ module.exports = {
       }
     ]
   },
-  resolve: {
-    alias: {
-      "react": "preact-compat",
-      "react-dom": "preact-compat"
-    }
-  },
   plugins: [
     new webpack.LoaderOptionsPlugin({
       options: {
         postcss: [ autoprefixer ]
       }
     })
-  ]
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, 'dist')
+  }
 };
