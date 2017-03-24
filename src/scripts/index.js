@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import Ssknr from './components/Ssknr';
-import App from './components/App';
+import Instance from './components/Instance';
 import { boundActionCreators } from './modules/eventHandlers';
 
 // TODO REMOVE
@@ -54,7 +54,7 @@ const selectSkinr = ({
       render(
         (
           <Provider store={store}>
-            <App id={id} />
+            <Instance id={id} />
           </Provider>
         ),
         $container,

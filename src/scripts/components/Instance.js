@@ -13,6 +13,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch);
 }
 
-const App = connect(mapStateToProps, mapDispatchToProps)(Ssknr);
+const Instance = connect(mapStateToProps, mapDispatchToProps)(Ssknr);
 
-export default App;
+export default Instance;
