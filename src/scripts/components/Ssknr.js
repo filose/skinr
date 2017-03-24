@@ -8,13 +8,13 @@ const Ssknr = (props) => {
   function handleToggle(e) {
     e.preventDefault();
     const { closeSsknr, openSsknr } = props;
-    if (elems[id].isOpen) {
+    if (elems[id].open) {
       closeSsknr(id);
     } else {
       openSsknr(id);
     }
   }
-  const ssknrContentOpen = currentElem.isOpen ? ` ${style.ssknrContentOpen}` : '';
+  const ssknrContentOpen = currentElem.open ? ` ${style.ssknrContentOpen}` : '';
   return (
     <dl className={style.ssknr} onClick={handleToggle}>
       <dt>{currentElem.title}</dt>
