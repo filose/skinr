@@ -15,9 +15,11 @@ const Ssknr = (props) => {
     }
   }
   const ssknrContentOpen = currentElem.open ? ` ${style.ssknrContentOpen}` : '';
+  const selectedOption = currentElem.options.find(o => o.selected);
+  const title = selectedOption ? selectedOption.text : currentElem.title;
   return (
     <dl className={style.ssknr} onClick={handleToggle}>
-      <dt>{currentElem.title}</dt>
+      <dt>{title}</dt>
       <dd className={`${style.ssknrContent}${ssknrContentOpen}`}>
         <ul className={style.ssknrOptions}>
           {currentElem.options.map((option, i) => {
