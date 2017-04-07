@@ -5,6 +5,14 @@ export function getElems(elems) {
   };
 }
 
+export function getElemWidth(id, width) {
+  return {
+    type: 'GET_ELEM_WIDTH',
+    id,
+    width,
+  };
+}
+
 export function openSsknr(id) {
   return {
     type: 'OPEN_SSKNR',

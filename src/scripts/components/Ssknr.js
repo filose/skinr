@@ -3,6 +3,10 @@ import SsknrOption from './SsknrOption';
 import style from '../../styles/components/_ssknr.scss';
 
 class Ssknr extends React.Component {
+  componentDidMount() {
+    const $elem = document.querySelector(`.js-ssknr[data-id="${this.props.id}"]`);
+    this.props.getElemWidth(this.props.id, $elem.clientWidth);
+  }
   componentWillReceiveProps(nextProps) {
     // Check if currentElem has changed
     if (nextProps.elems[nextProps.id] !== this.props.elems[this.props.id]) {
@@ -39,7 +43,12 @@ class Ssknr extends React.Component {
     const selectedOption = currentElem.options.find(o => o.selected);
     const title = selectedOption ? selectedOption.text : currentElem.title;
     return (
-      <dl className={`c-ssknr js-ssknr ${style.ssknr}`} data-id={id} onClick={handleToggle}>
+      <dl
+        className={`c-ssknr js-ssknr ${style.ssknr}`}
+        style={{ width: `${currentElem.width}px` }}
+        data-id={id}
+        onClick={handleToggle}
+      >
         <dt className="c-ssknr__title">{title}</dt>
         <dd className={`c-ssknr__content ${style.ssknrContent}${ssknrContentOpen}`}>
           <ul className={`c-ssknr__options ${style.ssknrOptions}`}>

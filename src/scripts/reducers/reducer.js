@@ -47,6 +47,16 @@ const options = (state = [], action) => {
 
 const elems = (state = {}, action) => {
   switch (action.type) {
+    case 'GET_ELEM_WIDTH': {
+      const { id, width } = action;
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+          width,
+        },
+      };
+    }
     case 'OPEN_SSKNR': {
       const { id } = action;
       return {
@@ -118,6 +128,11 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         elems: action.elems,
+      };
+    case 'GET_ELEM_WIDTH':
+      return {
+        ...state,
+        elems: elems(state.elems, action),
       };
     case 'OPEN_SSKNR':
       return {
