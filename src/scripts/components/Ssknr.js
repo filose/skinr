@@ -39,10 +39,10 @@ class Ssknr extends React.Component {
     const selectedOption = currentElem.options.find(o => o.selected);
     const title = selectedOption ? selectedOption.text : currentElem.title;
     return (
-      <dl className={style.ssknr} onClick={handleToggle}>
-        <dt>{title}</dt>
-        <dd className={`${style.ssknrContent}${ssknrContentOpen}`}>
-          <ul className={style.ssknrOptions}>
+      <dl className={`c-ssknr ${style.ssknr}`} onClick={handleToggle}>
+        <dt className="c-ssknr__title">{title}</dt>
+        <dd className={`c-ssknr__content ${style.ssknrContent}${ssknrContentOpen}`}>
+          <ul className={`c-ssknr__options ${style.ssknrOptions}`}>
             {currentElem.options.map((option, i) => {
               return (
                 <SsknrOption
