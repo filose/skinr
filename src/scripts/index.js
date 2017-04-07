@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Ssknr from './components/Ssknr';
 import Instance from './components/Instance';
-import { getElems } from './actions/actionCreators';
+import { getElems, closeSsknr } from './actions/actionCreators';
 import buildElemsObj from './modules/buildElemsObj';
 
 // TODO REMOVE
@@ -42,6 +42,18 @@ const selectSkinr = ({
         $container,
       );
     }
+    // Global event listeners
+    document.addEventListener('click', (e) => {
+      const currentState = store.getState();
+      for (const [id, elem] of Object.entries(currentState.elems)) {
+        if (elem.open) {
+          const $parent = document.querySelector(`.js-ssknr[data-id="${id}"]`);
+          if (!$parent.contains(e.target)) {
+            store.dispatch(closeSsknr(id));
+          }
+        }
+      }
+    });
   });
 };
 
