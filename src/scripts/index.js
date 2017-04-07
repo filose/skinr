@@ -7,12 +7,6 @@ import Instance from './components/Instance';
 import { getElems, closeSsknr } from './actions/actionCreators';
 import buildElemsObj from './modules/buildElemsObj';
 
-// TODO REMOVE
-store.subscribe(() => {
-  // Log any updates to the store
-  console.log('Store: ', store.getState());
-});
-
 const selectSkinr = ({
   target = 'select',
   hasTitle = false,
