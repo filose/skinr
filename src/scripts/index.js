@@ -29,6 +29,8 @@ const selectSkinr = ({
       const $elem = document.getElementById(id);
       // Hide initial elements
       $elem.setAttribute('hidden', true);
+      // Remove all options from intial elements
+      $elem.options.length = 0;
       const $container = document.createElement('div');
       $elem.parentNode.insertBefore($container, $elem.nextSibling);
       render(
