@@ -48,6 +48,7 @@ class Ssknr extends React.Component {
         style={{ width: `${currentElem.width}px` }}
         data-id={id}
         onClick={handleToggle}
+        tabIndex="0"
       >
         <dt className="c-ssknr__title">{title}</dt>
         <dd className={`c-ssknr__content ${style.ssknrContent}${ssknrContentOpen}`}>
