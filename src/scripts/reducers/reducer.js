@@ -53,7 +53,7 @@ const elems = (state = {}, action) => {
         ...state,
         [id]: {
           ...state[id],
-          isOpen: true,
+          open: true,
         },
       };
     }
@@ -63,7 +63,7 @@ const elems = (state = {}, action) => {
         ...state,
         [id]: {
           ...state[id],
-          isOpen: false,
+          open: false,
         },
       };
     }

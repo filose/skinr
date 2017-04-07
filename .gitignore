@@ -1,6 +1,11 @@
+# compiled
+dist/*/bundle.*
+
 # sass
 .sass-cache/
-*.css.map
+
+# maps
+*.map
 
 # package management
 node_modules
