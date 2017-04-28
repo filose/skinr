@@ -1,6 +1,9 @@
 # skinr
 Minimal JavaScript plugin to help style `<select>` elements. Built with es6 and Redux.
 
+## Setup
+Install depencies with `npm install` then run webpack dev server with `npm start` or create production builds with `npm run build`
+
 **N.B. _Not_ production-ready.**
 
 ## Config
